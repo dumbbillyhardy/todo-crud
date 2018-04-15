@@ -1,4 +1,4 @@
-import {render, html} from './node_modules/lit-html/lit-html.js';
+import {html, render} from './node_modules/lit-html/lib/lit-extended.js';
 import {TodoList} from './todo-list.js';
 import {TodoInput} from './todo-input.js';
 import {Todo} from './todo.js';
@@ -28,10 +28,11 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     }
 
     get todos() {
-        return this.$$(TodoList.is).todos;
+        return this._todos;
     }
     set todos(todos) {
-        this.$$(TodoList.is).todos = todos;
+        this._todos = todos;
+        this.render();
     }
     get editingTodo() {
         return this._editingTodo;
@@ -42,10 +43,9 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     }
 
     render() {
-            //<todo-list todos="${JSON.stringify(this.todos)}"></todo-list>
         render(html`
-            <todo-list></todo-list>
-            <todo-input todo="${JSON.stringify(this.editingTodo)}"></todo-input>
+            <todo-list todos=${this.todos}></todo-list>
+            <todo-input todo=${this.editingTodo}></todo-input>
         `, this.shadowRoot);
     }
 }

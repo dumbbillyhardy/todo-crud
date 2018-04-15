@@ -18,21 +18,17 @@ export class TodoList extends QueryMixin(HTMLElement) {
                 });
         };
     }
-    connectedCallback() {
-        //this.$all(TodoItem.is).forEach(el => el.addEventListener(TodoItem.changedEventName, this._todoListener));
-    }
-    disconnectedCallback() {
-        //this.$all(TodoItem.is).forEach(el => el.removeEventListener(TodoItem.changedEventName, this._todoListener));
-    }
     attributeChangedCallback(name, oldValue, newValue) {
-        this[name] = JSON.parse(newValue);
+        if(newValue) {
+            this[name] = JSON.parse(newValue);
+        }
     }
     
     static get is() {
         return "todo-list";
     }
     static get observedAttributes() {
-        return ["todos"];
+        return [];
     }
 
     get todos() {
@@ -44,9 +40,7 @@ export class TodoList extends QueryMixin(HTMLElement) {
     }
 
     render() {
-        render(html`
-            ${repeat(this.todos, t => html`<todo-item todo="${t}" on-todo-changed="${this._todoListener}"></todo-item>`)}
-        `, this.shadowRoot);
+        render(html`${repeat(this.todos, (todo) => html`<todo-item todo=${todo} on-todo-changed=${this._todoListener}></todo-item>`)}`, this.shadowRoot);
     }
 
 }

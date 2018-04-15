@@ -24,7 +24,7 @@ export class TodoInput extends QueryMixin(HTMLElement) {
         return "todo-input";
     }
     static get observedAttributes() {
-        return ["todo"];
+        return [];
     }
 
     get todo() {
@@ -43,7 +43,7 @@ export class TodoInput extends QueryMixin(HTMLElement) {
                 }
             </style>
             <input id="checkbox" type="checkbox" checked?="${this.todo.done}"/>
-            <input id="text"     type="text"     value="${this.todo.content}"/>
+            <input id="text"     type="text"     value=${this.todo.content}/>
             <button on-click="${this._saveListener}">Save</button>
         `, this.shadowRoot);
     }
