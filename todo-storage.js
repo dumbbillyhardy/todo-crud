@@ -1,10 +1,9 @@
 import {toString, fromString} from './todo.js';
 
 export function serialize(todos) {
-    return todos.reduce((acc, t) => acc+'\n'+toString(t), '');
+    return todos.reduce((acc, t) => acc+'\n'+toString(t), '').trim();
 }
 export function parse(data) {
-    //storage = window.localStorage.getItem(filename).trim() || '';
     return data.split('\n')
         .reduce((acc, x) => {
             if(x.trim()) {

@@ -13,7 +13,7 @@
             todoApp.addEventListener("todos-changed", (e) => {
                 const todosString = window.localStorage.getItem(list)
                 const currentTodos = todoApp.getAttribute("todos");
-                if(todosString !== currentTodos) {
+                if(currentTodos && todosString !== currentTodos) {
                     window.localStorage.setItem(list, currentTodos);
                 }
             });
