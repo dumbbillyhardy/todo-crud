@@ -28,7 +28,7 @@ export class TodoList extends QueryMixin(HTMLElement) {
             this.fire(TodoList.changedEventName, todos);
         };
     }
-    
+
     static get is() {
         return "todo-list";
     }
@@ -40,14 +40,20 @@ export class TodoList extends QueryMixin(HTMLElement) {
         return this._todos;
     }
     set todos(todos) {
-        //if(this._todos !== todos) {
-            this._todos = todos;
-            this.render();
-        //}
+        this._todos = todos;
+        this.render();
     }
 
     render() {
-        render(html`${repeat(this.todos, (todo) => html`<todo-item todo=${todo} on-todo-changed=${this._todoListener} on-todo-deleted=${this._deleteListener}></todo-item>`)}`, this.shadowRoot);
+        render(html`
+            ${repeat(this.todos, (todo) => html`
+                <todo-item 
+                    todo=${todo}
+                    on-todo-changed=${this._todoListener}
+                    on-todo-deleted=${this._deleteListener}>
+                </todo-item>
+            `)}
+        `, this.shadowRoot);
     }
 
 }
