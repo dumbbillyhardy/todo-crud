@@ -24,12 +24,12 @@ export class TodoApp extends QueryMixin(HTMLElement) {
         };
     }
     connectedCallback() {
-        this.getSlotted(TodoInput.is).addEventListener(TodoInput.createdEventName, this._createTodoListener);
-        this.getSlotted(TodoList.is).addEventListener(TodoList.changedEventName, this._changedTodosListener);
+        this.getSlotted("[slot=input]").addEventListener(TodoInput.createdEventName, this._createTodoListener);
+        this.getSlotted("[slot=list]").addEventListener(TodoList.changedEventName, this._changedTodosListener);
     }
     disconnectedCallback() {
-        this.getSlotted(TodoInput.is).removeEventListener(TodoInput.createdEventName, this._createTodoListener);
-        this.getSlotted(TodoList.is).removeEventListener(TodoList.changedEventName, this._changedTodosListener);
+        this.getSlotted("[slot=input]").removeEventListener(TodoInput.createdEventName, this._createTodoListener);
+        this.getSlotted("[slot=list]").removeEventListener(TodoList.changedEventName, this._changedTodosListener);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if(name === "todos") {
@@ -37,7 +37,7 @@ export class TodoApp extends QueryMixin(HTMLElement) {
                 this._todos = this.parse(newValue);
                 this.fire('todos-changed', this.todos);
                 this.render();
-                this.getSlotted(TodoList.is).todos = this.todos;
+                this.getSlotted("[slot=list]").todos = this.todos;
             }
         }
     }
@@ -61,17 +61,17 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     }
     set editingTodo(todo) {
         this._editingTodo = todo;
-        this.getSlotted(TodoInput.is).todo = this.editingTodo;
+        this.getSlotted("[slot=list]").todo = this.editingTodo;
         this.render();
     }
 
     render() {
         render(html`
             <slot name="list">
-                <todo-list></todo-list>
+                <todo-list slot="list"></todo-list>
             </slot>
             <slot name="input">
-                <todo-input></todo-input>
+                <todo-input slot="input"></todo-input>
             </slot>
         `, this.shadowRoot);
     }
