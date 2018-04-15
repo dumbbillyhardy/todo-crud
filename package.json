@@ -1,7 +1,12 @@
 {
   "name": "todo-crud",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "Web Components allowing simple CRUD on a list of todos that are serialized/deserialized to/from attributes",
   "main": "todo-app.js",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/billy-hardy/todo-crud.git"
+  },
   "license": "MIT",
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.2.0",
