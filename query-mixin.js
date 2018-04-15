@@ -5,9 +5,13 @@ export const QueryMixin = (clazz) => class extends clazz {
     $all(cssSelector) {
         return [...this.shadowRoot.querySelectorAll(cssSelector)];
     }
-    fire(eventName, detail) {
+    fire(eventName, detail, eventConfig) {
         this.dispatchEvent(new CustomEvent(eventName, {
-            detail
+            detail,
+            ...eventConfig
         }));
+    }
+    getSlotted(cssSelector) {
+        return this.querySelector(cssSelector) || this.$$(cssSelector);
     }
 }
