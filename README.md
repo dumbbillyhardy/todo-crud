@@ -1,2 +1,2 @@
-# lit-test
-Simple todo-list application using lit-html to test out its features
+# Todo-Crud
+Simple todo application that serializes/deserializes the items to/from element attributes

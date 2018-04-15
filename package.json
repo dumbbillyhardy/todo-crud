@@ -1,7 +1,7 @@
 {
-  "name": "lit-test",
+  "name": "todo-crud",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "todo-app.js",
   "license": "MIT",
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.2.0",
