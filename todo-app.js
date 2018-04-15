@@ -37,6 +37,7 @@ export class TodoApp extends QueryMixin(HTMLElement) {
                 this._todos = this.parse(newValue);
                 this.fire('todos-changed', this.todos);
                 this.render();
+                this.getSlotted(TodoList.is).todos = this.todos;
             }
         }
     }
@@ -60,19 +61,19 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     }
     set editingTodo(todo) {
         this._editingTodo = todo;
+        this.getSlotted(TodoInput.is).todo = this.editingTodo;
         this.render();
     }
 
     render() {
         render(html`
-            <slot name="todo-list">
+            <slot name="list">
                 <todo-list></todo-list>
             </slot>
-            <slot name="todo-input">
-                <todo-input todo=${this.editingTodo}></todo-input>
+            <slot name="input">
+                <todo-input></todo-input>
             </slot>
         `, this.shadowRoot);
-        this.getSlotted(TodoList.is).todos = this.todos;
     }
 }
 customElements.define(TodoApp.is, TodoApp);
