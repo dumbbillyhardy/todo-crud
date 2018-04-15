@@ -9,17 +9,11 @@ export class TodoItem extends QueryMixin(HTMLElement) {
         this._inputListener = (e) => {
             this.todo.content = this.$$("#text").value;
             this.todo.done = this.$$("#checkbox").checked;
-            this.fire(TodoItem.createdEventName, this.todo);
+            this.fire(TodoItem.changedEventName, this.todo);
         };
-
-    }
-    connectedCallback() {
-        this.$$("#text").addEventListener("input", this._inputListener);
-        this.$$("#checkbox").addEventListener("input", this._inputListener);
-    }
-    disconnectedCallback() {
-        this.$$("#text").removeEventListener("input", this._inputListener);
-        this.$$("#checkbox").removeEventListener("input", this._inputListener);
+        this._deleteListener = (e) => {
+            this.fire(TodoItem.deletedEventName, this.todo);
+        };
     }
     
     static get is() {
@@ -27,6 +21,9 @@ export class TodoItem extends QueryMixin(HTMLElement) {
     }
     static get changedEventName() {
         return "todo-changed";
+    }
+    static get deletedEventName() {
+        return "todo-deleted";
     }
     static get observedAttributes() {
         return ["todo"];
@@ -58,6 +55,7 @@ export class TodoItem extends QueryMixin(HTMLElement) {
                 type="text"
                 value="${this.todo.content}"
                 on-input="${this._inputListener}"/>
+            <button on-click="${this._deleteListener}">Delete</button>
         `, this.shadowRoot);
     }
 

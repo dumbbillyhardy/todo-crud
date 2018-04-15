@@ -5,5 +5,16 @@
     </head>
     <body>
         <todo-app></todo-app>
+        <script>
+            const todoApp = document.querySelector("todo-app");
+            todoApp.setAttribute("todos",  window.localStorage.getItem("todos"));
+            todoApp.addEventListener("todos-changed", (e) => {
+                const todosString = window.localStorage.getItem("todos")
+                const currentTodos = todoApp.getAttribute("todos");
+                if(todosString !== currentTodos) {
+                    window.localStorage.setItem("todos", currentTodos);
+                }
+            });
+        </script>
     </body>
 </html>

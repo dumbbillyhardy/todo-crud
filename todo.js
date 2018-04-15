@@ -1,8 +1,5 @@
-import {generateUUID} from './uuid-utils.js'
-
 export class Todo {
     constructor(content, done) {
-        this.id = generateUUID();
         this.content = content;
         this.done = done;
     }
@@ -22,4 +19,12 @@ export class Todo {
     static fromJSON(json) {
         return new Todo(json.content, json.done);
     }
+}
+export function toString(_this) {
+    return `[${_this.done?'x':' '}] ${_this.content}`;
+}
+export function fromString(string) {
+    const done = string[1] === 'x';
+    const content = string.slice(4);
+    return new Todo(content, done);
 }

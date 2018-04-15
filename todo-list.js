@@ -9,38 +9,45 @@ export class TodoList extends QueryMixin(HTMLElement) {
         super();
         this.attachShadow({mode: 'open'});
         this._todoListener = (e) => {
-            this.todos = this.todos
-                .map((item) => {
-                    if(item.id === e.detail.id) {
-                        return e.detail;
-                    }
-                    return item;
-                });
+            const todo = e.detail;
+            const todos = this.todos.map((t) => {
+                if(t.id === todo.id) {
+                    return todo;
+                }
+                return t;
+            });
+            this.fire(TodoList.changedEventName, todos);
         };
-    }
-    attributeChangedCallback(name, oldValue, newValue) {
-        if(newValue) {
-            this[name] = JSON.parse(newValue);
-        }
+        this._deleteListener = (e) => {
+            const todos = this.todos.reduce((acc, t) => {
+                if(t.id === e.detail.id) {
+                    return acc;
+                }
+                return acc.concat([t]);
+            }, []);
+            this.fire(TodoList.changedEventName, todos);
+        };
     }
     
     static get is() {
         return "todo-list";
     }
-    static get observedAttributes() {
-        return [];
+    static get changedEventName() {
+        return "todos-changed";
     }
 
     get todos() {
         return this._todos;
     }
     set todos(todos) {
-        this._todos = todos;
-        this.render();
+        //if(this._todos !== todos) {
+            this._todos = todos;
+            this.render();
+        //}
     }
 
     render() {
-        render(html`${repeat(this.todos, (todo) => html`<todo-item todo=${todo} on-todo-changed=${this._todoListener}></todo-item>`)}`, this.shadowRoot);
+        render(html`${repeat(this.todos, (todo) => html`<todo-item todo=${todo} on-todo-changed=${this._todoListener} on-todo-deleted=${this._deleteListener}></todo-item>`)}`, this.shadowRoot);
     }
 
 }
