@@ -9,6 +9,8 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     constructor() {
         super();
         this.attachShadow({mode: 'open'});
+        this.parse = parse;
+        this.serialize = serialize;
         this.render();
         this._createTodoListener = (e) => {
             this.editingTodo = new Todo();
@@ -32,7 +34,7 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     attributeChangedCallback(name, oldValue, newValue) {
         if(name === "todos") {
             if(oldValue !== newValue) {
-                this._todos = parse(newValue);
+                this._todos = this.parse(newValue);
                 this.fire('todos-changed', {
                     detail: this.todos
                 });
@@ -53,7 +55,7 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     }
     set todos(todos) {
         this._todos = todos;
-        this.setAttribute("todos", serialize(todos));
+        this.setAttribute("todos", this.serialize(todos));
     }
     get editingTodo() {
         return this._editingTodo;
