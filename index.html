@@ -4,7 +4,9 @@
         <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
     </head>
     <body>
-        <todo-app></todo-app>
+        <todo-app>
+            <todo-list slot="todo-list"></todo-list>
+        </todo-app>
         <script>
             const urlParams = new URLSearchParams(window.location.search);
             const list = urlParams.get('list');

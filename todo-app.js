@@ -24,20 +24,18 @@ export class TodoApp extends QueryMixin(HTMLElement) {
         };
     }
     connectedCallback() {
-        this.$$(TodoInput.is).addEventListener(TodoInput.createdEventName, this._createTodoListener);
-        this.$$(TodoList.is).addEventListener(TodoList.changedEventName, this._changedTodosListener);
+        this.getSlotted(TodoInput.is).addEventListener(TodoInput.createdEventName, this._createTodoListener);
+        this.getSlotted(TodoList.is).addEventListener(TodoList.changedEventName, this._changedTodosListener);
     }
     disconnectedCallback() {
-        this.$$(TodoInput.is).removeEventListener(TodoInput.createdEventName, this._createTodoListener);
-        this.$$(TodoList.is).removeEventListener(TodoList.changedEventName, this._changedTodosListener);
+        this.getSlotted(TodoInput.is).removeEventListener(TodoInput.createdEventName, this._createTodoListener);
+        this.getSlotted(TodoList.is).removeEventListener(TodoList.changedEventName, this._changedTodosListener);
     }
     attributeChangedCallback(name, oldValue, newValue) {
         if(name === "todos") {
             if(oldValue !== newValue) {
                 this._todos = this.parse(newValue);
-                this.fire('todos-changed', {
-                    detail: this.todos
-                });
+                this.fire('todos-changed', this.todos);
                 this.render();
             }
         }
@@ -67,9 +65,14 @@ export class TodoApp extends QueryMixin(HTMLElement) {
 
     render() {
         render(html`
-            <todo-list todos=${this.todos}></todo-list>
-            <todo-input todo=${this.editingTodo}></todo-input>
+            <slot name="todo-list">
+                <todo-list></todo-list>
+            </slot>
+            <slot name="todo-input">
+                <todo-input todo=${this.editingTodo}></todo-input>
+            </slot>
         `, this.shadowRoot);
+        this.getSlotted(TodoList.is).todos = this.todos;
     }
 }
 customElements.define(TodoApp.is, TodoApp);
