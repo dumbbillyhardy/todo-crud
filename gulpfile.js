@@ -10,7 +10,8 @@ var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var parse = require('parse-git-config');
 var replace = require('gulp-replace');
-const webpack = require('webpack-stream');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
 
 gulp.task('default', ['copy-assets', 'copy-index', 'webpack']);
 
@@ -32,7 +33,7 @@ gulp.task('copy-assets', ['clean'], () => {
 
 gulp.task('webpack', ['clean'], () => {
     return gulp.src('./todo-app.js')
-        .pipe(webpack(require('./webpack.config.js')))
+        .pipe(webpackStream(require('./webpack.config.js'), webpack))
         .pipe(gulp.dest(DEPLOY_DIR))
 });
     
