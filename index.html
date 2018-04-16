@@ -1,11 +1,4 @@
-<html>
-    <head>
-        <script type="module" src="./bundle.js"></script>
-        <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
-    </head>
-    <body>
-        <todo-app></todo-app>
-        <script>
+<html><head><script type=module src=./bundle.js></script><script src=./node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js></script></head><body><todo-app></todo-app><script>
             const urlParams = new URLSearchParams(window.location.search);
             const list = urlParams.get('list');
             if(!list) {
@@ -27,6 +20,4 @@
                     todoApp.setAttribute("todos", e.newValue);
                 }
             });
-        </script>
-    </body>
-</html>
+        </script></body></html>
