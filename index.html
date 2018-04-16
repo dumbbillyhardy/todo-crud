@@ -8,6 +8,10 @@
         <script>
             const urlParams = new URLSearchParams(window.location.search);
             const list = urlParams.get('list');
+            if(!list) {
+                urlParams.set('list', "My First Todo");
+                window.location.search = urlParams.toString();
+            }
             const todoApp = document.querySelector("todo-app");
             todoApp.setAttribute("todos",  window.localStorage.getItem(list) || '');
             todoApp.setAttribute("title", list || "My First Todo");
