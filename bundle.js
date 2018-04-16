@@ -1054,6 +1054,12 @@ class TodoApp extends Object(__WEBPACK_IMPORTED_MODULE_4__query_mixin_js__["a" /
 
     render() {
         Object(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["b" /* render */])(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["a" /* html */]`
+            <style>
+                todo-input {
+                    display: block;
+                    padding: 0.5rem;
+                }
+            </style>
             <h2>${this.title}</h2>
             <slot name="list">
                 <todo-list slot="list"></todo-list>
@@ -1127,6 +1133,12 @@ class TodoList extends Object(__WEBPACK_IMPORTED_MODULE_2__query_mixin_js__["a" 
 
     render() {
         Object(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["b" /* render */])(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["a" /* html */]`
+            <style>
+                todo-item {
+                    display: block;
+                    padding: 0.5rem;
+                }
+            </style>
             ${Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_lit_html_lib_repeat_js__["a" /* repeat */])(this.todos, (todo) => __WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["a" /* html */]`
                 <todo-item 
                     todo=${todo}
@@ -1287,11 +1299,6 @@ class TodoItem extends Object(__WEBPACK_IMPORTED_MODULE_1__query_mixin_js__["a" 
 
     render() {
         Object(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["b" /* render */])(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["a" /* html */]`
-            <style>
-                :host {
-                    display: block;
-                }
-            </style>
             <input id="checkbox"
                 type="checkbox"
                 checked="${this.todo.done}"
