@@ -3,6 +3,10 @@ import {html, render} from './node_modules/lit-html/lib/lit-extended.js';
 import {repeat} from './node_modules/lit-html/lib/repeat.js';
 
 class SubClass extends TodoList {
+    constructor() {
+        super();
+        const childTypes = [TodoItem]; //prevent tree shaking
+    }
     static get is() {
         return "todo-list-subclass";
     }

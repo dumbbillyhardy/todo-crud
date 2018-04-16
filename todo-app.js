@@ -8,6 +8,7 @@ import {parse, serialize} from './todo-storage.js';
 export class TodoApp extends QueryMixin(HTMLElement) {
     constructor() {
         super();
+        const childTypes = [TodoList, TodoInput]; //prevent tree shaking
         this.attachShadow({mode: 'open'});
         this.parse = parse;
         this.serialize = serialize;

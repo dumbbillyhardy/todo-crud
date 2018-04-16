@@ -7,6 +7,7 @@ import {Todo} from './todo.js';
 export class TodoList extends QueryMixin(HTMLElement) {
     constructor() {
         super();
+        const childTypes = [TodoItem]; //prevent tree shaking
         this.attachShadow({mode: 'open'});
         this._todoListener = (e) => {
             const todo = e.detail;
