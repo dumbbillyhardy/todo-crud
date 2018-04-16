@@ -18,7 +18,7 @@ export class DropboxAuthButton extends HTMLElement {
 
     render() {
         render(html`
-            <button><a href=${this.authUrl}>Authenticate with Dropbox</a></button>
+            <a href=${this.authUrl}>Authenticate with Dropbox</a>
         `, this.shadowRoot);
     }
 }
