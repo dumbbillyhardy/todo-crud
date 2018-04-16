@@ -4,12 +4,21 @@
   "description": "Web Components allowing simple CRUD on a list of todos that are serialized/deserialized to/from attributes",
   "main": "todo-app.js",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/billy-hardy/todo-crud.git"
+    "type": "git",
+    "url": "https://github.com/billy-hardy/todo-crud.git"
   },
   "license": "MIT",
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.2.0",
     "lit-html": "^0.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-replace": "^0.6.1",
+    "parse-git-config": "^2.0.2",
+    "webpack-stream": "^4.0.3",
+    "yargs": "^11.0.0"
   }
 }
