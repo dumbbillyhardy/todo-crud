@@ -17,6 +17,7 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-gh-pages": "^0.5.4",
+    "gulp-minify-html": "^1.0.6",
     "gulp-replace": "^0.6.1",
     "parse-git-config": "^2.0.2",
     "webpack": "^4.5.0",

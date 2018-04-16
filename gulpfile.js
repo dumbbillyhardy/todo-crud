@@ -8,6 +8,7 @@ var argv = require('yargs').argv;
 var clean = require('gulp-clean');
 var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
+var minifyHtml = require('gulp-minify-html');
 var parse = require('parse-git-config');
 var replace = require('gulp-replace');
 const webpack = require('webpack');
@@ -23,6 +24,7 @@ gulp.task('clean', () => {
 gulp.task('copy-index', ['clean'], () => {
     return gulp.src('./index.html')
         .pipe(replace('todo-app.js', 'bundle.js'))
+        .pipe(minifyHtml())
         .pipe(gulp.dest(DEPLOY_DIR));
 });
 
