@@ -42,11 +42,6 @@ export class TodoItem extends QueryMixin(HTMLElement) {
 
     render() {
         render(html`
-            <style>
-                :host {
-                    display: block;
-                }
-            </style>
             <input id="checkbox"
                 type="checkbox"
                 checked="${this.todo.done}"

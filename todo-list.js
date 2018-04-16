@@ -46,6 +46,12 @@ export class TodoList extends QueryMixin(HTMLElement) {
 
     render() {
         render(html`
+            <style>
+                todo-item {
+                    display: block;
+                    padding: 0.5rem;
+                }
+            </style>
             ${repeat(this.todos, (todo) => html`
                 <todo-item 
                     todo=${todo}

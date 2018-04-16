@@ -79,6 +79,12 @@ export class TodoApp extends QueryMixin(HTMLElement) {
 
     render() {
         render(html`
+            <style>
+                todo-input {
+                    display: block;
+                    padding: 0.5rem;
+                }
+            </style>
             <h2>${this.title}</h2>
             <slot name="list">
                 <todo-list slot="list"></todo-list>
