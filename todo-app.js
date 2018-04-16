@@ -32,13 +32,18 @@ export class TodoApp extends QueryMixin(HTMLElement) {
         this.getSlotted("[slot=list]").removeEventListener(TodoList.changedEventName, this._changedTodosListener);
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if(name === "todos") {
-            if(oldValue !== newValue) {
-                this._todos = this.parse(newValue);
-                this.fire('todos-changed', this.todos);
-                this.render();
-                this.getSlotted("[slot=list]").todos = this.todos;
-            }
+        switch(name) {
+            case("todos"):
+                if(oldValue !== newValue) {
+                    this._todos = this.parse(newValue);
+                    this.fire('todos-changed', this.todos);
+                    this.render();
+                    this.getSlotted("[slot=list]").todos = this.todos;
+                }
+                break;
+            case("title"):
+                this.title = newValue;
+                break;
         }
     }
 
@@ -46,7 +51,7 @@ export class TodoApp extends QueryMixin(HTMLElement) {
         return "todo-app";
     }
     static get observedAttributes() {
-        return ["todos"];
+        return ["todos", "title"];
     }
 
     get todos() {
@@ -55,6 +60,13 @@ export class TodoApp extends QueryMixin(HTMLElement) {
     set todos(todos) {
         this._todos = todos;
         this.setAttribute("todos", this.serialize(todos));
+    }
+    get title() {
+        return this._title;
+    }
+    set title(title) {
+        this._title = title;
+        this.render();
     }
     get editingTodo() {
         return this._editingTodo;
@@ -67,6 +79,7 @@ export class TodoApp extends QueryMixin(HTMLElement) {
 
     render() {
         render(html`
+            <h2>${this.title}</h2>
             <slot name="list">
                 <todo-list slot="list"></todo-list>
             </slot>
