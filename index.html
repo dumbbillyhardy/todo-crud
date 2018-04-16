@@ -10,6 +10,7 @@
             const list = urlParams.get('list');
             const todoApp = document.querySelector("todo-app");
             todoApp.setAttribute("todos",  window.localStorage.getItem(list) || '');
+            todoApp.setAttribute("title", list || "My First Todo");
             todoApp.addEventListener("todos-changed", (e) => {
                 const todosString = window.localStorage.getItem(list)
                 const currentTodos = todoApp.getAttribute("todos");

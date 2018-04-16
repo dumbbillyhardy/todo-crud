@@ -1007,13 +1007,18 @@ class TodoApp extends Object(__WEBPACK_IMPORTED_MODULE_4__query_mixin_js__["a" /
         this.getSlotted("[slot=list]").removeEventListener(__WEBPACK_IMPORTED_MODULE_1__todo_list_js__["a" /* TodoList */].changedEventName, this._changedTodosListener);
     }
     attributeChangedCallback(name, oldValue, newValue) {
-        if(name === "todos") {
-            if(oldValue !== newValue) {
-                this._todos = this.parse(newValue);
-                this.fire('todos-changed', this.todos);
-                this.render();
-                this.getSlotted("[slot=list]").todos = this.todos;
-            }
+        switch(name) {
+            case("todos"):
+                if(oldValue !== newValue) {
+                    this._todos = this.parse(newValue);
+                    this.fire('todos-changed', this.todos);
+                    this.render();
+                    this.getSlotted("[slot=list]").todos = this.todos;
+                }
+                break;
+            case("title"):
+                this.title = newValue;
+                break;
         }
     }
 
@@ -1021,7 +1026,7 @@ class TodoApp extends Object(__WEBPACK_IMPORTED_MODULE_4__query_mixin_js__["a" /
         return "todo-app";
     }
     static get observedAttributes() {
-        return ["todos"];
+        return ["todos", "title"];
     }
 
     get todos() {
@@ -1030,6 +1035,13 @@ class TodoApp extends Object(__WEBPACK_IMPORTED_MODULE_4__query_mixin_js__["a" /
     set todos(todos) {
         this._todos = todos;
         this.setAttribute("todos", this.serialize(todos));
+    }
+    get title() {
+        return this._title;
+    }
+    set title(title) {
+        this._title = title;
+        this.render();
     }
     get editingTodo() {
         return this._editingTodo;
@@ -1042,6 +1054,7 @@ class TodoApp extends Object(__WEBPACK_IMPORTED_MODULE_4__query_mixin_js__["a" /
 
     render() {
         Object(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["b" /* render */])(__WEBPACK_IMPORTED_MODULE_0__node_modules_lit_html_lib_lit_extended_js__["a" /* html */]`
+            <h2>${this.title}</h2>
             <slot name="list">
                 <todo-list slot="list"></todo-list>
             </slot>
