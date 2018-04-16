@@ -23,7 +23,7 @@ gulp.task('clean', () => {
 
 gulp.task('copy-index', ['clean'], () => {
     return gulp.src('./index.html')
-        .pipe(replace('todo-app.js', 'bundle.js'))
+        .pipe(replace('dropbox-app.js', 'bundle.js'))
         .pipe(minifyHtml())
         .pipe(gulp.dest(DEPLOY_DIR));
 });
@@ -34,7 +34,7 @@ gulp.task('copy-assets', ['clean'], () => {
 });
 
 gulp.task('webpack', ['clean'], () => {
-    return gulp.src('./todo-app.js')
+    return gulp.src('./dropbox-app.js')
         .pipe(webpackStream(require('./webpack.config.js'), webpack))
         .pipe(gulp.dest(DEPLOY_DIR))
 });
