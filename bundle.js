@@ -1319,6 +1319,7 @@ customElements.define(TodoItem.is, TodoItem);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__query_mixin_js__ = __webpack_require__(1);
 
 
+const ENTER = 13;
 
 class TodoInput extends Object(__WEBPACK_IMPORTED_MODULE_1__query_mixin_js__["a" /* QueryMixin */])(HTMLElement) {
     constructor() {
@@ -1327,7 +1328,14 @@ class TodoInput extends Object(__WEBPACK_IMPORTED_MODULE_1__query_mixin_js__["a"
         this._saveListener = (e) => {
             this.todo.content = this.$$("#text").value;
             this.todo.done = this.$$("#checkbox").checked;
+            this.$$("#text").value = "";
+            this.$$("#checkbox").checked = false;
             this.fire(TodoInput.createdEventName, this.todo);
+        };
+        this._keypressListener = (e) => {
+            if(e.keyCode === ENTER) {
+                this._saveListener();
+            }
         };
         this.todo = {};
 
@@ -1362,7 +1370,7 @@ class TodoInput extends Object(__WEBPACK_IMPORTED_MODULE_1__query_mixin_js__["a"
                 }
             </style>
             <input id="checkbox" type="checkbox" checked?="${this.todo.done}"/>
-            <input id="text"     type="text"     value=${this.todo.content}/>
+            <input id="text"     type="text"     value=${this.todo.content} on-keypress=${this._keypressListener}/>
             <button on-click="${this._saveListener}">Save</button>
         `, this.shadowRoot);
     }
