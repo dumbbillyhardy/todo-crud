@@ -24,6 +24,7 @@ gulp.task('clean', () => {
 gulp.task('copy-index', ['clean'], () => {
     return gulp.src('./index.html')
         .pipe(replace('dropbox-app.js', 'bundle.js'))
+        .pipe(replace('module', ''))
         .pipe(minifyHtml())
         .pipe(gulp.dest(DEPLOY_DIR));
 });
