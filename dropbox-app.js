@@ -1,11 +1,12 @@
 import {html, render} from './node_modules/lit-html/lib/lit-extended.js';
 import {TodoApp} from './todo-app.js';
+import {DropboxAuthButton} from './dropbox-auth-button.js';
 import {writeTodoList, readTodoList} from './dropbox-storage.js';
 
 export class DropboxApp extends HTMLElement {
     constructor() {
         super();
-        const childTypes = [TodoApp]; //prevent tree shaking
+        const childTypes = [TodoApp, DropboxAuthButton]; //prevent tree shaking
         this.attachShadow({mode: 'open'});
         this.listName = this.getListName();
         readTodoList(this.listName)
@@ -41,6 +42,7 @@ export class DropboxApp extends HTMLElement {
     }
     render() {
         render(html`
+            <dropbox-auth-button></dropbox-auth-button>
             <todo-app 
                 todos=${this.todos}
                 title=${this.listName}

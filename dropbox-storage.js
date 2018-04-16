@@ -4,8 +4,7 @@ import {Dropbox} from 'dropbox';
 import {parse, serialize} from './todo-storage.js';
 
 var dropbox = new Dropbox({clientId: API_KEY});
-window.dropbox = dropbox;
-const authenticated = new Promise((resolve) => {
+export const authenticated = new Promise((resolve) => {
     const accessToken = window.localStorage.getItem("access_token");
     if(accessToken) {
         dropbox.accessToken = accessToken;
@@ -19,8 +18,10 @@ const authenticated = new Promise((resolve) => {
         resolve(dropbox);
         return;
     }
-    open(dropbox.getAuthenticationUrl(window.location.origin + window.location.pathname));
 });
+export function getAuthUrl() {
+    return dropbox.getAuthenticationUrl(window.location.origin + window.location.pathname);
+}
 
 
 export function listTodoLists() {
