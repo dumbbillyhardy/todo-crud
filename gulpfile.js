@@ -38,21 +38,18 @@ gulp.task('webpack', ['clean'], () => {
     
 
 gulp.task('gh-deploy', ['default'], () => {
-    let url = argv.remoteUrl;
-    if (!url && argv.remote) {
-        let gitConfig = parse.sync();
-        let remote = gitConfig['remote "'+argv.remote+'"'];
-        if(!remote) {
-            return Promise.reject('remote name does not exist in repository');
-        }
-        url = remote.url;
+    let gitConfig = parse.sync();
+    let remote = gitConfig['remote "origin"'];
+    if(!remote) {
+        return Promise.reject('remote name does not exist in repository');
     }
-    if(!url) {
-        return Promise.reject('--remoteUrl="..." or --remote="..." flag is required');
+    let remoteUrl = remote.url;
+    if(!remoteUrl) {
+        return Promise.reject('origin is not set in git');
     }
     return gulp.src(DEPLOY_DIR+'/**')
         .pipe(ghPages({
-            remoteUrl: url,
+            remoteUrl,
             branch: 'gh-pages'
         }));
 });
