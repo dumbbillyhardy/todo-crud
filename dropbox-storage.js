@@ -1,4 +1,4 @@
-const API_KEY = "ofr0gsnkfiej9co";
+const API_KEY = "fpcdyqdlll231rq";
 
 import {Dropbox} from 'dropbox';
 import {parse, serialize} from './todo-storage.js';
